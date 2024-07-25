@@ -47,19 +47,25 @@ numberButtons.forEach(button => {
             lastButtonOperation = false;
             lastButtonEquals = false;
         };
+
         if (displayText.textContent == "0" || displayText.textContent == "00") {
             if (e.target.id != ".") {
                 displayText.textContent = "";
             } 
         };
-        if (displayText.textContent.length == 12)
+
+        if (displayText.textContent.length == 11)
             { 
-        } else if (displayText.textContent.length == 11 
+        } else if (displayText.textContent.length == 10
             && e.target.id == "00") {
+        } else if (displayText.textContent == "" 
+            && e.target.id == "00") {
+                displayText.textContent = "0";
         } else {
             if (e.target.id == "." && displayText.textContent.includes(".")) {
             } else {
                 displayText.textContent += e.target.id;
+                /* alert("got here 2") */
             }
         };
     });
@@ -119,8 +125,8 @@ equalsButton.addEventListener("click", (e) => {
             break;
         case "divide":
             let divided = String(divide(number1, number2));
-            if (divided.length > 12) {
-                displayText.textContent = divided.substring(0,12);
+            if (divided.length > 11) {
+                displayText.textContent = divided.substring(0,11);
             } else {
                 displayText.textContent = divided;
             }

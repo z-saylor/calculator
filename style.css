@@ -1,3 +1,8 @@
+body {
+    color: #444;
+    font-family: sans-serif;
+}
+
 .calculator {
     display: flex;
     flex-direction: column;
@@ -48,6 +53,8 @@ button {
     font-size: 16px;
     border-left: solid #C2BAB5;
     border-bottom: solid #C2BAB5;
+    color: #444;
+    font-family: sans-serif;
 }
 
 #equals {
