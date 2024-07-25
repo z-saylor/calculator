@@ -1,8 +1,8 @@
 function add(a,b) {
-    return a+b;
+    return +a + +b;
 }
 
-function substract(a,b) {
+function subtract(a,b) {
     return a-b;
 }
 
@@ -31,34 +31,101 @@ function operate(num1, num2, oper) {
     }
 }
 
-let number1;
-let operation;
-let number2;
+let number1 = null;
+let operation = null;
+let number2 = null;
+let lastButtonOperation = false;
+let lastButtonEquals = false;
 
 const displayText = document.querySelector(".display p");
 
 const numberButtons = document.querySelectorAll(".number");
 numberButtons.forEach(button => {
     button.addEventListener("click", (e) => {
-        alert(e.target.id);
+        if (lastButtonOperation || lastButtonEquals) {
+            displayText.textContent = "";
+            lastButtonOperation = false;
+            lastButtonEquals = false;
+        };
+        if (displayText.textContent == "0" || displayText.textContent == "00") {
+            if (e.target.id != ".") {
+                displayText.textContent = "";
+            } 
+        };
+        if (displayText.textContent.length == 12)
+            { 
+        } else if (displayText.textContent.length == 11 
+            && e.target.id == "00") {
+        } else {
+            if (e.target.id == "." && displayText.textContent.includes(".")) {
+            } else {
+                displayText.textContent += e.target.id;
+            }
+        };
     });
 });
 
 const clearButton = document.querySelector("#clear");
 clearButton.addEventListener("click", (e) => {
-    alert("clearin");
+    number1 = null;
+    operation = null;
+    number2 = null;
+    displayText.textContent = "0";
 });
 
 const operandButtons = document.querySelectorAll(".operand");
 operandButtons.forEach(button => {
     button.addEventListener("click", (e) => {
-        alert("operatin");
+        number1 = displayText.textContent;
+        operation = e.target.id;
+        lastButtonOperation = true;
     });
 });
 
 const alterationButtons = document.querySelectorAll(".alteration");
 alterationButtons.forEach(button => {
     button.addEventListener("click", (e) => {
-        alert("alterin");
+        switch (e.target.id) {
+            case "negative":
+                displayText.textContent = -1 * displayText.textContent;
+                break;
+            case "percent":
+                displayText.textContent = displayText.textContent / 100;
+                break;
+        }
+        lastButtonOperation = false;
+        lastButtonEquals = false;
     });
+});
+
+const equalsButton = document.querySelector("#equals");
+equalsButton.addEventListener("click", (e) => {
+    if (!lastButtonEquals) {
+        number2 = displayText.textContent;
+    }
+    if (lastButtonEquals) {
+        number1 = displayText.textContent;
+    }
+
+    switch (operation) {
+        case "add":
+            displayText.textContent = add(number1, number2);
+            break;
+        case "subtract":
+            displayText.textContent = subtract(number1, number2);
+            break;
+        case "multiply":
+            displayText.textContent = multiply(number1, number2);
+            break;
+        case "divide":
+            let divided = String(divide(number1, number2));
+            if (divided.length > 12) {
+                displayText.textContent = divided.substring(0,12);
+            } else {
+                displayText.textContent = divided;
+            }
+            break;
+    }
+
+    lastButtonEquals = true;
 });
