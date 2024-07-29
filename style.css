@@ -1,3 +1,10 @@
+@font-face {
+    font-family: "7_seg";
+    src: url("7-segments-display.otf");
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
     color: #444;
     font-family: sans-serif;
@@ -34,7 +41,8 @@ body {
 .display p {
     padding: 0px;
     margin: 0px;
-    font-size: 32px;
+    font-size: 24px;
+    font-family: "7_seg";
 }
 
 .button-row {
